@@ -6,4 +6,5 @@
     <string name="track_pregnancy">Track Pregnancy</string>
     <string name="due_date">DUE DATE</string>
     <string name="first_day_of_last_period">First day of last period</string>
+    <string name="you_are_on_pregnancy_day_number">You are on pregnancy day number</string>
 </resources>
