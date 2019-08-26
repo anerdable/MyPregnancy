@@ -4,17 +4,14 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.paula.mypregnancy.R;
-import com.paula.mypregnancy.model.DueDateCalculator;
+import com.paula.mypregnancy.model.Calculator;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
@@ -40,7 +37,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         Calendar c = Calendar.getInstance();
         c.set(year, month, day);
         last.setText(dateFormat.format(c.getTime()));
-        due.setText(DueDateCalculator.calculateDueDate(c));
+        due.setText(Calculator.calculateDueDate(c));
     }
 
 

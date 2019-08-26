@@ -1,25 +1,27 @@
 package com.paula.mypregnancy.model;
 
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
-public class DueDateCalculator {
+public class Calculator {
 
-    private Calendar mLastPeriod;
-    private String TAG ="DueDateCalculator";
-
-    public DueDateCalculator(Calendar lastPeriod){
-        this.mLastPeriod = lastPeriod;
-    }
+    private String TAG ="Calculator";
 
     public static String calculateDueDate(Calendar lastPeriod){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM, yyyy", Locale.UK);
         Calendar dueDate = lastPeriod;
         dueDate.add(Calendar.DATE, 280);
         return dateFormat.format(dueDate.getTime());
+    }
+
+    public static int calculateDaysLeft(Calendar dueDate){
+        return Math.round(0 / (24 * 60 * 60 * 1000));
+    }
+
+    public static int calculateDaysPregnant(Calendar lastPeriod){
+        return Math.round(0 / (24 * 60 * 60 * 1000));
     }
 
 }
