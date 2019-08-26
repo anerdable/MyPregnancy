@@ -1,4 +1,4 @@
-package com.example.mypregnancy2;
+package com.paula.mypregnancy;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

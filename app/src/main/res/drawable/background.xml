@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<layer-list android:shape="rectangle" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/bgd_gradient" />
+
+    <item>
+        <bitmap android:src="@drawable/fetus"
+            android:gravity="center" />
+
+    </item>
+
+</layer-list>
