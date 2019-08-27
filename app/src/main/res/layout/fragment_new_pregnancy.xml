@@ -2,114 +2,116 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bgd_gradient_medium"
+    android:id="@+id/fragment_new_pregnancy"
+    tools:context=".controller.NewPregnancyFragment"
 >
 
-    <ImageView
-        android:id="@+id/imageView"
+    <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/fetus"
+        android:text="@string/title"
+        android:textColor="@color/grey"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"/>
+        app:layout_constraintBottom_toTopOf="@id/info"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_the_date_of_the_first_day_of_your_last_period"
-        android:textSize="18sp"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:text="@string/first_day_last_period"
+        android:textColor="@color/grey"
+        android:textAlignment="center"
+        android:paddingLeft="75dp"
+        android:paddingRight="75dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView" />
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toTopOf="@id/calculateDueDate"/>
 
     <Button
         android:id="@+id/calculateDueDate"
-        android:background="@drawable/button_design"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_design"
         android:text="@string/calculate_due_date"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView"/>
+        app:layout_constraintTop_toBottomOf="@id/info"
+        app:layout_constraintBottom_toTopOf="@id/periodTitle"/>
 
     <TextView
-        android:id="@+id/lastPeriod"
+        android:id="@+id/periodTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/first_day_of_last_period"
-        android:textSize="26sp"
-        android:paddingRight="8dp"
         android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calculateDueDate"/>
+        app:layout_constraintTop_toBottomOf="@id/calculateDueDate"
+        app:layout_constraintBottom_toTopOf="@id/last"/>
 
     <TextView
         android:id="@+id/last"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="8dp"
         android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lastPeriod"/>
+        app:layout_constraintTop_toBottomOf="@id/periodTitle"
+        app:layout_constraintBottom_toTopOf="@id/dueDateTitle"/>
+
 
     <TextView
-        android:id="@+id/dueDate"
+        android:id="@+id/dueDateTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/due_date"
-        android:textSize="26sp"
-        android:paddingRight="8dp"
         android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/last"/>
+        app:layout_constraintTop_toBottomOf="@id/last"
+        app:layout_constraintBottom_toTopOf="@id/due"/>
 
     <TextView
         android:id="@+id/due"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="8dp"
         android:paddingLeft="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dueDate"/>
-
+        app:layout_constraintTop_toBottomOf="@id/dueDateTitle"
+        app:layout_constraintBottom_toTopOf="@id/track"/>
 
     <Button
         android:id="@+id/track"
-        android:background="@drawable/button_design"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_design"
         android:text="@string/track_pregnancy"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/due"
+        app:layout_constraintTop_toBottomOf="@id/due"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
 
 </android.support.constraint.ConstraintLayout>

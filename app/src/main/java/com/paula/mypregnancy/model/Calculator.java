@@ -9,11 +9,10 @@ public class Calculator {
 
     private String TAG ="Calculator";
 
-    public static String calculateDueDate(Calendar lastPeriod){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM, yyyy", Locale.UK);
+    public static Calendar calculateDueDate(Calendar lastPeriod){
         Calendar dueDate = lastPeriod;
         dueDate.add(Calendar.DATE, 280);
-        return dateFormat.format(dueDate.getTime());
+        return dueDate;
     }
 
     public static int calculateDaysLeft(Calendar dueDate){
@@ -22,6 +21,14 @@ public class Calculator {
 
     public static int calculateDaysPregnant(Calendar lastPeriod){
         return Math.round(0 / (24 * 60 * 60 * 1000));
+    }
+
+    public void calculateTimeLineSize(){
+
+    }
+
+    public int calculateWeek(){
+        return 0;
     }
 
 }

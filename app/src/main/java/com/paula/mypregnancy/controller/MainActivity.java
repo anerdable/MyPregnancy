@@ -1,59 +1,61 @@
 package com.paula.mypregnancy.controller;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 
 import com.paula.mypregnancy.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
-    private Button newPregnancy, trackPregnancy;
+    private Fragment mNewPregnancyFragment, mTrackPregnancyFragment;
+    final FragmentManager fm = this.getSupportFragmentManager();
+    private final static String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Fragment fragment;
+
         if (savedInstanceState != null){
-
+            fragment = fm.getFragment(savedInstanceState, String.valueOf(R.id.fragment_container));
         } else {
-
+            fragment = fm.findFragmentById(R.id.fragment_container);
         }
 
-        newPregnancy = findViewById(R.id.newPregnancy);
-        newPregnancy.setOnClickListener(this);
-        trackPregnancy = findViewById(R.id.trackPregnancy);
-        trackPregnancy.setOnClickListener(this);
-
-    }
-
-    public void trackPregnancy(){
-
-    }
-
-    public void newPregnancy(){
-
-    }
-
-    public void removePregnancy(){
-
+        if (fragment == null) {
+            fm.beginTransaction()
+                    .add(R.id.fragment_container, new NewPregnancyFragment())
+                    .commit();
+        }
     }
 
     @Override
-    public void onClick(View v) {
-        Intent intent = null;
-        switch(v.getId()){
-            case R.id.newPregnancy:
-                intent = new Intent(this, NewPregnancyActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.trackPregnancy:
-                intent = new Intent(this, TrackPregnancyActivity.class);
-                break;
-        }
-        startActivity(intent);
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        getSupportFragmentManager().putFragment(outState,String.valueOf(R.id.fragment_container), fragment);
     }
+
+    public void newPregnancy(){
+        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            fm.popBackStack();
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, new NewPregnancyFragment());
+        transaction.commit();
+    }
+
+
+    public void trackPregnancy(){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, new TrackPregnancyFragment());
+        transaction.commit();
+    }
+
 }

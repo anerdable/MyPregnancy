@@ -4,34 +4,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.text.DateFormatSymbols;
+import java.util.Calendar;
 
-public class DueDate implements Parcelable {
+public class DueDate {
 
+    private Calendar mDueDate;
     private int mDay, mMonth, mYear;
 
-    public DueDate(int day, int month, int year){
-        this.mDay = day;
-        this.mMonth = month;
-        this.mYear = year;
+    public DueDate(Calendar dueDate){
+        this.mDueDate = dueDate;
     }
 
-    protected DueDate(Parcel in) {
-        mDay = in.readInt();
-        mMonth = in.readInt();
-        mYear = in.readInt();
+    public Calendar getmDueDate(){
+        return mDueDate;
     }
-
-    public static final Creator<DueDate> CREATOR = new Creator<DueDate>() {
-        @Override
-        public DueDate createFromParcel(Parcel in) {
-            return new DueDate(in);
-        }
-
-        @Override
-        public DueDate[] newArray(int size) {
-            return new DueDate[size];
-        }
-    };
 
     public int getDay(){
         return mDay;
@@ -62,15 +48,4 @@ public class DueDate implements Parcelable {
         return mDay + " " + getMonthName(mMonth) + ", "  + mYear;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mDay);
-        dest.writeInt(mMonth);
-        dest.writeInt(mYear);
-    }
 }
