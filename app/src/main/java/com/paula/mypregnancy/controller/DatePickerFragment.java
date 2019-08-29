@@ -2,7 +2,6 @@ package com.paula.mypregnancy.controller;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
@@ -26,7 +25,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
         NewPregnancyFragment npf = (NewPregnancyFragment) getTargetFragment();
-        npf.displayDueDate(year, month, day);
+        npf.setLastPeriod(year, month, day);
     }
 
 }
