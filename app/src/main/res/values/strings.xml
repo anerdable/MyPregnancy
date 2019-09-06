@@ -1,10 +1,18 @@
 <resources>
     <string name="app_name">My Pregnancy</string>
-    <string name="enter_the_date_of_the_first_day_of_your_last_period">Enter the date of the first day of your last period</string>
+    <string name="first_day_last_period">Please enter the first day of your last
+period to calculate your due date</string>
     <string name="calculate_due_date">CALCULATE DUE DATE</string>
     <string name="new_pregnancy">New Pregnancy</string>
     <string name="track_pregnancy">Track Pregnancy</string>
-    <string name="due_date">DUE DATE</string>
-    <string name="first_day_of_last_period">First day of last period</string>
+    <string name="due_date">Estimated due date:</string>
+    <string name="first_day_of_last_period">First day of last period:</string>
     <string name="you_are_on_pregnancy_day_number">You are on pregnancy day number</string>
+    <string name="title">MY PREGNANCY TRACKER</string>
+    <string name="baby">BABY</string>
+    <string name="gallery">GALLERY</string>
+    <string name="week">W E E K</string>
+    <string name="take_a_picture">Take a picture</string>
+    <string name="abort_pregnancy">Abort pregnancy</string>
+    <string name="mummy">MUMMY</string>
 </resources>

@@ -5,14 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
-import android.widget.TextView;
-
-import com.paula.mypregnancy.R;
-import com.paula.mypregnancy.model.Calculator;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -31,14 +24,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM, yyyy", Locale.UK);
-        TextView last = getActivity().findViewById(R.id.last);
-        TextView due = getActivity().findViewById(R.id.due);
-        Calendar c = Calendar.getInstance();
-        c.set(year, month, day);
-        last.setText(dateFormat.format(c.getTime()));
-        due.setText(Calculator.calculateDueDate(c));
+        NewPregnancyFragment npf = (NewPregnancyFragment) getTargetFragment();
+        npf.setLastPeriod(year, month, day);
     }
-
 
 }
