@@ -11,7 +11,7 @@ import com.paula.mypregnancy.R;
 import com.paula.mypregnancy.model.DueDate;
 import java.util.Calendar;
 
-public class NewPregnancyFragment extends Fragment implements View.OnClickListener{
+public class NewPregnancyFragment extends Fragment {
 
     private Button mCalculateDueDate, mTrack;
     private DueDate mDueDate;
@@ -45,10 +45,23 @@ public class NewPregnancyFragment extends Fragment implements View.OnClickListen
         mPeriodTitleTextView = view.findViewById(R.id.periodTitle);
         mDueDateTitleTextView = view.findViewById(R.id.dueDateTitle);
         mCalculateDueDate = view.findViewById(R.id.calculateDueDate);
-        mCalculateDueDate.setOnClickListener(this);
+        mCalculateDueDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerFragment newFragment = new DatePickerFragment();
+                newFragment.setTargetFragment(NewPregnancyFragment.this, REQUEST_CODE);
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
         mTrack = view.findViewById(R.id.track);
         mTrack.setVisibility(View.INVISIBLE);
-        mTrack.setOnClickListener(this);
+        mTrack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity mMainActivity = (MainActivity) getActivity();
+                mMainActivity.setDueDate(mDueDate);
+            }
+        });
         if (mDueDate != null){
             displayDueDate();
         }
@@ -60,21 +73,6 @@ public class NewPregnancyFragment extends Fragment implements View.OnClickListen
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putParcelable(DUE_DATE_PARCEL, mDueDate);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.calculateDueDate:
-                DatePickerFragment newFragment = new DatePickerFragment();
-                newFragment.setTargetFragment(NewPregnancyFragment.this, REQUEST_CODE);
-                newFragment.show(getFragmentManager(), "datePicker");
-                break;
-            case R.id.track:
-                MainActivity mMainActivity = (MainActivity) getActivity();
-                mMainActivity.setDueDate(mDueDate);
-                break;
-        }
     }
 
     protected void setLastPeriod(int year, int month, int day){
@@ -91,4 +89,5 @@ public class NewPregnancyFragment extends Fragment implements View.OnClickListen
         mDueDateTextView.setText(mDueDate.toString());
         mTrack.setVisibility(View.VISIBLE);
     }
+
 }

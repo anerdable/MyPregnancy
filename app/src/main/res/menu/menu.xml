@@ -4,8 +4,14 @@
 
     <item
         android:id="@+id/camera"
-        android:title="Take a picture"
+        android:title="@string/take_a_picture"
         android:icon="@drawable/camera"
         app:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/abort"
+        android:title="@string/abort_pregnancy"
+        app:showAsAction="never">
     </item>
 </menu>

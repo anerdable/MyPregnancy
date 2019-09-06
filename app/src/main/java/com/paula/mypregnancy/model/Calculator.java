@@ -30,10 +30,6 @@ public class Calculator {
         return 280 - daysLeft;
     }
 
-    public void calculateTimeLineSize() {
-
-    }
-
     public static int calculateWeek(Calendar dueDate) {
         int daysPregnant = calculateDaysPregnant(dueDate);
         int week = daysPregnant / 7;
