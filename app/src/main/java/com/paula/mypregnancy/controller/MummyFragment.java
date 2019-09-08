@@ -1,5 +1,22 @@
 package com.paula.mypregnancy.controller;
 
+/*
+ * MummyFragment
+ *
+ * An implementation of a pregnancy tracker app.
+ * Development of mobile applications
+ * Umeå Universitet, summer course 2019
+ *
+ * Paula D'Cruz
+ *
+ * This is one of the controller classes. It controls the view where the user can see information
+ * relevant to the pregnant person.
+ *
+ */
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -14,19 +31,44 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.paula.mypregnancy.R;
 import com.paula.mypregnancy.model.DueDate;
+import java.io.File;
 
 public class MummyFragment extends Fragment {
 
     private Toolbar mToolbar;
     private Button mTrackPregnancyButton;
     private TextView mMummyInformation, mWeek;
+    private File mCameraFile;
     private DueDate mDueDate;
     private ImageView mBellyPic;
     private static final String DUE_DATE_PARCEL = "com.paula.mypregnancy.model.DueDate";
     private final static String TAG = "MummyFragment ";
+    private Context mContext;
+
+    /**
+     * onAttach
+     *
+     * called once the fragment is associated with its activity.
+     *
+     * @param context the context that the fragment can be found in.
+     */
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        mContext = context;
+    }
+
+    /**
+     * onCreate
+     *
+     * Handles restoring state by receiving parcelable
+     * data and extras when available.
+     *
+     * @param savedInstanceState Bundle: saved state
+     */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +79,21 @@ public class MummyFragment extends Fragment {
         } else {
 
         }
+        mCameraFile = new File(mContext.getFilesDir(), "mypic.jpg");
     }
+
+    /**
+     * onCreateView
+     *
+     * this method sets up the entire mummy view. it constructs all UI artifacts such as ImageView, a TextView with
+     * information about changes the mother might experience, as well as a Button to take the user back to the
+     * Track pregnancy view.
+     *
+     * @param inflater the layoutInflator object that is used to inflate view to the fragment
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return
+     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +101,6 @@ public class MummyFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_mummy, container, false);
         if (getArguments() != null) {
             mDueDate = getArguments().getParcelable("dueDate");
-            Log.d(TAG, " getting due date " + mDueDate);
         }
         mToolbar = view.findViewById(R.id.action_bar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
@@ -66,10 +121,42 @@ public class MummyFragment extends Fragment {
         return view;
     }
 
+    /**
+     * onSaveInstanceState
+     *
+     * saves the due date object to transient storage in a bundle on configuration change such as rotation
+     *
+     * @param outState bundle in which to place saved state.
+     */
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(DUE_DATE_PARCEL, mDueDate);
+    }
+
+    /**
+     * onCreateOptionsMenu
+     *
+     * creates the menu in the toolbar
+     *
+     * @param menu the menu that is available in the toolbar
+     * @param inflater inflates the menu
+     */
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         inflater.inflate(R.menu.menu, menu);
     }
+
+    /**
+     * onOptionsItemSelected
+     *
+     * this method calls whatever method is triggered based on the user's choice
+     *
+     * @param item the item selected in the menu
+     * @return selected item
+     */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -86,11 +173,40 @@ public class MummyFragment extends Fragment {
         }
     }
 
+    /**
+     * updateView
+     *
+     * this method is called to set all relevant information in the view. if there is a picture saved to internal storage,
+     * it will be converted into a bitmap to show in the imageView. if not, a stock photo is shown. the method also calls on
+     * another method to decide which information is relevant to show in the TextView, based on the user's current pregnancy
+     * week.
+     *
+     */
+
     private void updateView(){
-        mBellyPic.setImageResource(R.drawable.pregnant);
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = 2;
+        bmOptions.inPurgeable = true;
+        Bitmap bitmap = BitmapFactory.decodeFile(mCameraFile.getAbsolutePath(), bmOptions);
+        Log.d(TAG, "bitmap " + bitmap);
+        if (bitmap != null){
+            mBellyPic.setImageBitmap(bitmap);
+        } else {
+            mBellyPic.setImageResource(R.drawable.pregnant);
+        }
         mWeek.setText("Week " + Integer.toString(mDueDate.getPregnancyWeek()));
         mMummyInformation.setText(getInformation());
     }
+
+    /**
+     * getInformation
+     *
+     * a long switch case that will return a hardcoded String with relevant information the the user, based on how many
+     * weeks pregnant they are.
+     *
+     * @return a String with information
+     */
 
     private String getInformation() {
         switch (mDueDate.getPregnancyWeek()) {
@@ -179,12 +295,6 @@ public class MummyFragment extends Fragment {
             default:
                 return "Still pregnant? That's okay. Babies come to term anywhere between 38 and 42 weeks—your 40-week due date simply marks the midpoint of this period. If your delivery is scheduled, you'll check into the hospital and either be prepped for a C-section or, if you're going to deliver vaginally, given something to induce labor, like a prostaglandin gel to soften or ripen your cervix or an IV drip of pitocin (a synthetic version of the hormone oxytocin) to start up contractions.";
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState){
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(DUE_DATE_PARCEL, mDueDate);
     }
 
 }

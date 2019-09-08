@@ -1,5 +1,18 @@
 package com.paula.mypregnancy.controller;
 
+/*
+ * TrackPregnancyFragment
+ *
+ * An implementation of a pregnancy tracker app.
+ * Development of mobile applications
+ * Umeå Universitet, summer course 2019
+ *
+ * Paula D'Cruz
+ *
+ * This is one of the controller classes. It controls the view where the user can track the pregnancy.
+ *
+ */
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +39,15 @@ public class TrackPregnancyFragment extends Fragment {
     private static final String DUE_DATE_PARCEL = "com.paula.mypregnancy.model.DueDate";
     private final static String TAG = "TrackPregnancyFragment";
 
+    /**
+     * onCreate
+     *
+     * Handles restoring state by receiving parcelable
+     * data and extras when available.
+     *
+     * @param savedInstanceState Bundle: saved state
+     */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +58,18 @@ public class TrackPregnancyFragment extends Fragment {
 
         }
     }
+
+    /**
+     *onCreateView
+     *
+     * this method sets up the main pregnancy tracker view. it constructs all UI artifacts such as Buttons to different
+     * fragments, and a text and progress bar to indicate how the pregnancy is progressing in terms of time.
+     *
+     * @param inflater the layoutInflator object that is used to inflate view to the fragment
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return
+     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,10 +106,28 @@ public class TrackPregnancyFragment extends Fragment {
 
     }
 
+    /**
+     * onCreateOptionsMenu
+     *
+     * creates the menu in the toolbar
+     *
+     * @param menu the menu that is available in the toolbar
+     * @param inflater inflates the menu
+     */
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         inflater.inflate(R.menu.menu, menu);
     }
+
+    /**
+     * onOptionsItemSelected
+     *
+     * this method calls whatever method is triggered based on the user's choice
+     *
+     * @param item the item selected in the menu
+     * @return selected item
+     */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -92,11 +144,27 @@ public class TrackPregnancyFragment extends Fragment {
         }
     }
 
+    /**
+     * onSaveInstanceState
+     *
+     * saves the due date object to transient storage in a bundle on configuration change such as rotation
+     *
+     * @param outState bundle in which to place saved state
+     */
+
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putParcelable(DUE_DATE_PARCEL, mDueDate);
     }
+
+    /**
+     * updateView
+     *
+     * this method is called to change information in the view, based on how many weeks and days pregnant the user is.
+     * it also sets the progress bar to a percentage representation of the pregnancy progression.
+     *
+     */
 
     private void updateView() {
         int week = mDueDate.getPregnancyWeek();
@@ -109,6 +177,14 @@ public class TrackPregnancyFragment extends Fragment {
         mDueDateTextView.setText(mDueDate.toString());
         mProgressBar.setProgress(getPercentage());
     }
+
+    /**
+     * getPercentage
+     *
+     * this is used to determine how many percent pregnant the user is, based on how many weeks pregnant they are.
+     *
+     * @return an integer value representing how many percent pregnant the user is, to set the progress bar.
+     */
 
     private int getPercentage(){
         switch(mDueDate.getPregnancyWeek()){

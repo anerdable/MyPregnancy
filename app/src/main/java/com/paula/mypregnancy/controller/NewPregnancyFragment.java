@@ -1,5 +1,18 @@
 package com.paula.mypregnancy.controller;
 
+/*
+ * NewPregnancyFragment
+ *
+ * An implementation of a pregnancy tracker app.
+ * Development of mobile applications
+ * Umeå Universitet, summer course 2019
+ *
+ * Paula D'Cruz
+ *
+ * This is one of the controller classes. It controls the view where the user can set a new pregnancy to track.
+ *
+ */
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,6 +37,15 @@ public class NewPregnancyFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * onCreate
+     *
+     * Handles restoring state by receiving parcelable
+     * data and extras when available.
+     *
+     * @param savedInstanceState Bundle: saved state
+     */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +55,19 @@ public class NewPregnancyFragment extends Fragment {
         } else {
 
         }
-
     }
+
+    /**
+     * onCreateView
+     *
+     * this method sets up the view that is shown if there is no current pregnancy logged to be tracked.
+     * it is used to calculate the user's expected due date, and creates the button to save and track a pregnancy.
+     *
+     * @param inflater the layoutInflator object that is used to inflate view to the fragment
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return
+     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,11 +102,29 @@ public class NewPregnancyFragment extends Fragment {
 
     }
 
+    /**
+     * onSaveInstanceState
+     *
+     * saves the due date object (if available) to transient storage in a bundle on configuration change such as rotation
+     *
+     * @param outState bundle in which to place saved state
+     */
+
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putParcelable(DUE_DATE_PARCEL, mDueDate);
     }
+
+    /**
+     * setLastPeriod
+     *
+     * method used when choosing a date in the DatePickerFragment, that represents the first day of the last period.
+     *
+     * @param year the year chosen in DatePickerFragment
+     * @param month the month chosen in DatePickerFragment
+     * @param day the day chosen in DatePickerFragment
+     */
 
     protected void setLastPeriod(int year, int month, int day){
         Calendar lastPeriod = Calendar.getInstance();
@@ -81,6 +132,14 @@ public class NewPregnancyFragment extends Fragment {
         mDueDate = new DueDate(lastPeriod);
         displayDueDate();
     }
+
+    /**
+     * displayDueDate
+     *
+     * this method calculates a due date based on the last period and sets a text view that is visible to the user.
+     * It also activates the button that lets the user track the pregnancy, with the date shown in the view.
+     *
+     */
 
     protected void displayDueDate(){
         mPeriodTitleTextView.setText("First day of last period:");
