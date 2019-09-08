@@ -1,5 +1,18 @@
 package com.paula.mypregnancy.controller;
 
+/*
+ * BabyFragment
+ *
+ * An implementation of a pregnancy tracker app.
+ * Development of mobile applications
+ * Umeå Universitet, summer course 2019
+ *
+ * Paula D'Cruz
+ *
+ * This is one of the controller classes. It controls the view where the user can see information about the foetus.
+ *
+ */
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +39,15 @@ public class BabyFragment extends Fragment {
     private static final String DUE_DATE_PARCEL = "com.paula.mypregnancy.model.DueDate";
     private final static String TAG = "BabyFragment";
 
+    /**
+     * onCreate
+     *
+     * Handles restoring state by receiving parcelable
+     * data and extras when available.
+     *
+     * @param savedInstanceState Bundle: saved state
+     */
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +58,19 @@ public class BabyFragment extends Fragment {
 
         }
     }
+
+    /**
+     * onCreateView
+     *
+     * this method sets up the entire baby view. it constructs all UI artifacts such as ImageView, a TextView with
+     * information about what developments the foetus is going through in the current week of pregnancy,
+     * as well as a Button to take the user back to the Track pregnancy view.
+     *
+     * @param inflater the layoutInflator object that is used to inflate view to the fragment
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state.
+     * @return
+     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,10 +97,28 @@ public class BabyFragment extends Fragment {
         return view;
     }
 
+    /**
+     * onCreateOptionsMenu
+     *
+     * creates the menu in the toolbar
+     *
+     * @param menu the menu that is available in the toolbar
+     * @param inflater inflates the menu
+     */
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         inflater.inflate(R.menu.menu, menu);
     }
+
+    /**
+     * onOptionsItemSelected
+     *
+     * this method calls whatever method is triggered based on the user's choice
+     *
+     * @param item the item selected in the menu
+     * @return selected item
+     */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -82,11 +135,26 @@ public class BabyFragment extends Fragment {
         }
     }
 
+    /**
+     * onSaveInstanceState
+     *
+     * saves the due date object to transient storage in a bundle on configuration change such as rotation
+     *
+     * @param outState bundle in which to place saved state.
+     */
+
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putParcelable(DUE_DATE_PARCEL, mDueDate);
     }
+
+    /**
+     * updateView
+     *
+     * this method is called to determine which information should be shown in the view, based on the pregnancy week.
+     *
+     */
 
     private void updateView() {
         int week = mDueDate.getPregnancyWeek();
@@ -97,6 +165,15 @@ public class BabyFragment extends Fragment {
         }
         mBabyInformation.setText(getInformation());
     }
+
+    /**
+     * getInformation
+     *
+     * a long switch case that will return a hardcoded String with relevant information the the user, based on how many
+     * weeks pregnant they are.
+     *
+     * @return a String with information
+     */
 
     private String getInformation(){
         switch(mDueDate.getPregnancyWeek()){
